@@ -1,7 +1,7 @@
 package me.elsiff.morefish.hooker
 
 import me.clip.placeholderapi.PlaceholderAPI
-import me.clip.placeholderapi.external.EZPlaceholderHook
+import me.clip.placeholderapi.PlaceholderHook
 import me.elsiff.morefish.MoreFish
 import me.elsiff.morefish.configuration.format.Format
 import me.elsiff.morefish.fishing.competition.FishingCompetition
@@ -15,7 +15,7 @@ class PlaceholderApiHooker : PluginHooker {
     override var hasHooked = false
 
     override fun hook(plugin: MoreFish) {
-        MoreFishPlaceholder(plugin).hook()
+        PlaceholderAPI.registerPlaceholderHook(plugin.name, MoreFishPlaceholder(plugin))
         Format.init(this)
         hasHooked = true
     }
@@ -26,7 +26,7 @@ class PlaceholderApiHooker : PluginHooker {
 
     class MoreFishPlaceholder(
         moreFish: MoreFish
-    ) : EZPlaceholderHook(moreFish, "morefish") {
+    ) : PlaceholderHook() {
         private val competition: FishingCompetition = moreFish.competition
 
         override fun onPlaceholderRequest(player: Player?, identifier: String): String? {

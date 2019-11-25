@@ -21,7 +21,7 @@ abstract class ConfigurationValueAccessor {
             path, currentSection::getConfigurationSection,
             currentSection::isConfigurationSection, null
         )
-        return ConfigurationSectionAccessor(handle)
+        return ConfigurationSectionAccessor(handle!!)
     }
 
     fun contains(path: String): Boolean =
@@ -55,8 +55,9 @@ abstract class ConfigurationValueAccessor {
             currentSection.isLong(it) || currentSection.isInt(it)
         }, default)
 
-    fun string(path: String, default: String? = null): String =
-        findValue(path, currentSection::getString, currentSection::isString, default)
+    fun string(path: String, default: String? = null): String {
+        return findValue(path, currentSection::getString, currentSection::isString, default) ?: throw IllegalArgumentException()
+    }
 
     fun strings(path: String, default: List<String>? = null): List<String> =
         findValue(path, currentSection::getStringList, currentSection::isList, default)
