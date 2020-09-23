@@ -76,10 +76,12 @@ class MoreFish : JavaPlugin() {
         commands.registerCommand(mainCommand)
 
         if (!isSnapshotVersion()) {
-            updateChecker.check()
-            if (updateChecker.hasNewVersion()) {
-                val notifier = UpdateNotifierListener(updateChecker.newVersion)
-                server.pluginManager.registerEvents(notifier, this)
+            if (Config.standard.boolean("general.check-update")) {
+                updateChecker.check()
+                if (updateChecker.hasNewVersion()) {
+                    val notifier = UpdateNotifierListener(updateChecker.newVersion)
+                    server.pluginManager.registerEvents(notifier, this)
+                }
             }
         }
 

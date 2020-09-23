@@ -2,6 +2,7 @@ package me.elsiff.morefish.fishing
 
 import me.elsiff.morefish.configuration.Config
 import me.elsiff.morefish.configuration.Lang
+import me.elsiff.morefish.fishing.catchhandler.CatchFireworkSpawner
 import me.elsiff.morefish.fishing.catchhandler.CatchHandler
 import me.elsiff.morefish.fishing.catchhandler.CompetitionRecordAdder
 import me.elsiff.morefish.fishing.catchhandler.NewFirstBroadcaster
@@ -54,8 +55,8 @@ class FishingListener(
                 for (handler in catchHandlersOf(event, fish)) {
                     handler.handle(event.player, fish)
                 }
-                caught.setItemStack(converter.createItemStack(fish, event.player))
-                // ↑ Setter in Kotlin ....????????
+                caught.itemStack = converter.createItemStack(fish, event.player)
+                CatchFireworkSpawner().handle(event.player,fish)
             }
         }
     }

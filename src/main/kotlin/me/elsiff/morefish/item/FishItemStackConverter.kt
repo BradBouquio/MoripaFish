@@ -46,7 +46,12 @@ class FishItemStackConverter(
             val replacement = getFormatReplacementMap(fish, catcher)
             itemStack.edit<ItemMeta> {
                 setDisplayName(formatConfig.format("display-name").replace(replacement).output(catcher))
-                lore = formatConfig.formats("lore").replace(replacement).output(catcher)
+
+                //lore結合よくわからんかったからゴリ押し実装
+                val lore1 = formatConfig.formats("lore").replace(replacement).output(catcher)
+                val lore2 = lore
+                lore = (if (lore2 == null) lore1 else lore1 + lore2)
+
                 fishWriter.write(this, fish)
             }
         }

@@ -1,8 +1,8 @@
 package me.elsiff.morefish.configuration.loader
 
+import com.destroystokyo.paper.profile.ProfileProperty
 import me.elsiff.morefish.configuration.ConfigurationValueAccessor
 import me.elsiff.morefish.configuration.translated
-import me.elsiff.morefish.hooker.PluginHooker
 import me.elsiff.morefish.hooker.ProtocolLibHooker
 import me.elsiff.morefish.item.edit
 import me.elsiff.morefish.item.editIfHas
@@ -35,6 +35,7 @@ class CustomItemStackLoader(
                     addEnchant(enchantment, level, true)
                 }
                 isUnbreakable = it.boolean("unbreakable", false)
+                if (it.contains("custom-model-data")) setCustomModelData(it.int("custom-model-data"))
             }
 
             itemStack.editIfIs<Damageable> {
@@ -49,10 +50,14 @@ class CustomItemStackLoader(
             }
 
             if (it.contains("skull-texture")) {
-                PluginHooker.checkHooked(protocolLib)
-                itemStack = protocolLib.skullNbtHandler.writeTexture(itemStack, it.string("skull-texture"))
+                itemStack.editIfHas<SkullMeta> {
+                    val fishProfile = Bukkit.createProfile(UUID.randomUUID())
+                    fishProfile.setProperty(ProfileProperty("textures",it.string("skull-texture")))
+                    playerProfile = fishProfile
+                }
             }
             return itemStack
+
         }
     }
 }
