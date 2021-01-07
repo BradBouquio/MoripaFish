@@ -42,7 +42,7 @@ class FishTypeMapLoader(
                         conditions = fishConditionSetLoader.loadFrom(it, "conditions"),
                         hasNotFishItemFormat = it.boolean("skip-item-format", rarity.hasNotFishItemFormat),
                         noDisplay = it.boolean("no-display", rarity.noDisplay),
-                        hasCatchFirework = it.boolean("firework", rarity.hasCatchFirework),
+                        fireworkCount = 1..it.int("firework-count", -1),
                         additionalPrice = rarity.additionalPrice + it.double("additional-price", 0.0)
                     )
                 }.toSet()

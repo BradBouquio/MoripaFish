@@ -1,5 +1,6 @@
 package me.elsiff.morefish.fishing
 
+import me.elsiff.morefish.MoreFish
 import me.elsiff.morefish.configuration.Config
 import me.elsiff.morefish.configuration.Lang
 import me.elsiff.morefish.fishing.catchhandler.CatchFireworkSpawner
@@ -56,7 +57,7 @@ class FishingListener(
                     handler.handle(event.player, fish)
                 }
                 caught.itemStack = converter.createItemStack(fish, event.player)
-                CatchFireworkSpawner().handle(event.player,fish)
+                CatchFireworkSpawner(MoreFish()).handle(event.player,fish)
             }
         }
     }

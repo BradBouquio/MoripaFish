@@ -24,7 +24,7 @@ data class FishType(
     val conditions: Set<FishCondition> = emptySet(),
     val hasNotFishItemFormat: Boolean = false,
     val noDisplay: Boolean = false,
-    val hasCatchFirework: Boolean = false,
+    val fireworkCount: IntRange,
     val additionalPrice: Double = 0.0
 ) {
     fun generateFish(): Fish {

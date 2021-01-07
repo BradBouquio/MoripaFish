@@ -33,7 +33,7 @@ class FishRaritySetLoader(
                     ?: Config.defaultCatchAnnouncement,
                 hasNotFishItemFormat = it.boolean("skip-item-format", false),
                 noDisplay = it.boolean("no-display", false),
-                hasCatchFirework = it.boolean("firework", false),
+                fireworkCount = 1..it.int("firework-count", -1),
                 additionalPrice = it.double("additional-price", 0.0)
             )
         }.toSet()

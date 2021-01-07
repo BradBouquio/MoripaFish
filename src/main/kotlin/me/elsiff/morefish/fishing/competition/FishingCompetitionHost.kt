@@ -79,7 +79,7 @@ class FishingCompetitionHost(
                     )
                     for (record in ranking.slice(rangeInIndex)) {
                         val rankNumber = competition.rankNumberOf(record)
-                        prize.giveTo(record.fisher, rankNumber, plugin)
+                        prize.giveTo(record, rankNumber, plugin)
                     }
                 }
             }
@@ -128,7 +128,7 @@ class FishingCompetitionHost(
             "%number%" to number.toString(),
             "%player%" to fisherName,
             "%length%" to record.fish.length.toString(),
-            "%fish%" to record.fish.type.name
+            "%fish%" to record.fish.type.displayName
         )
     }
 }
